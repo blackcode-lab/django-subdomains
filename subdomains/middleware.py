@@ -14,12 +14,13 @@ lower = operator.methodcaller('lower')
 UNSET = object()
 
 
-try:
+# https://docs.djangoproject.com/en/1.10/topics/http/middleware/#upgrading-pre-django-1-10-style-middleware
+
+if django.VERSION < (1, 10):
+    class MiddlewareMixin(object):
+        pass
+else:
     from django.utils.deprecation import MiddlewareMixin
-except ImportError:
-    # Not required for Django <= 1.9, see:
-    # https://docs.djangoproject.com/en/1.10/topics/http/middleware/#upgrading-pre-django-1-10-style-middleware
-    MiddlewareMixin = object
 
 
 
