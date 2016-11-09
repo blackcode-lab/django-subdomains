@@ -16,12 +16,17 @@ UNSET = object()
 
 # https://docs.djangoproject.com/en/1.10/topics/http/middleware/#upgrading-pre-django-1-10-style-middleware
 
-if django.VERSION < (1, 10):
-    class MiddlewareMixin(object):
-        pass
-else:
-    from django.utils.deprecation import MiddlewareMixin
+# if django.VERSION < (1, 10):
+#     class MiddlewareMixin(object):
+#         pass
+# else:
+#     from django.utils.deprecation import MiddlewareMixin
 
+
+try:
+    from django.utils.deprecation import MiddlewareMixin
+except ImportError:
+    MiddlewareMixin = object
 
 
 class SubdomainMiddleware(MiddlewareMixin):
